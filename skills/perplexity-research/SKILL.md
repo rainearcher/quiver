@@ -29,6 +29,14 @@ The per-call output-budget check (Step 2.5) and multi-call sequencing (Step 2.6)
 - `PERPLEXITY_API_KEY` available in the environment (get one at https://www.perplexity.ai/account/api)
 - `curl` and `jq` installed
 
+Run the preflight check once on first use to verify everything is wired up:
+
+```bash
+bash ./scripts/check-setup.sh
+```
+
+It prints ✓/✗ for each requirement and a copy-paste fix for anything missing. Exits 0 when ready. If any check fails, surface the output to the user and stop — don't try to run the API script until preflight passes.
+
 ## When to Use
 
 - User explicitly asks for "deep research", "advanced research", or "perplexity research"
@@ -46,6 +54,10 @@ The per-call output-budget check (Step 2.5) and multi-call sequencing (Step 2.6)
 ## Workflow (MANDATORY — do not skip steps)
 
 Deep research runs cost real money and take 2–5 minutes. A bad run wastes both. Always follow this loop:
+
+### Step 0 — Verify setup (first run only)
+
+If this is the first invocation in the project, run `bash ./scripts/check-setup.sh` and only continue if it exits 0. If it reports a missing tool or unset key, surface the fix and stop. Skip this step on subsequent runs in the same session.
 
 ### Step 1 — Audit the initial query, then ask ONLY for what's missing
 
@@ -138,8 +150,10 @@ Once approved, invoke the script. Pass the approved plan + context + format requ
 
 **Always pass `--topic <slug>`** so the output lands in a topic subdirectory under `./docs/research/`. Before invoking, inspect the existing subdirectories (`ls docs/research/`) and either reuse an existing slug that matches the research area or create a new short kebab-case slug. If you're creating a new topic, pick something durable — a slug you'd still use for the next 3–5 reports in the same area, not a one-off phrase from the current question. Good slug shapes: `vendor-comparison`, `competitor-analysis`, `regulation-update`, `<product-area>`. Bad slug shapes: `doppler-vs-vault-2026` (too specific and date-coupled).
 
+The script lives at `./scripts/research.sh` (relative to this SKILL.md). When invoked by an agent, use that skill-relative path — it resolves correctly in both `npx skills` installs and Claude Code `/plugin` installs.
+
 ```bash
-bash ./skills/perplexity-research/scripts/research.sh \
+bash ./scripts/research.sh \
   --preset advanced-deep-research \
   --output ./docs/research \
   --topic <topic-slug> \
