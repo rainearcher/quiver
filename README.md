@@ -98,4 +98,8 @@ MIT — see [LICENSE](./LICENSE).
 
 ## Author
 
-Raine Soriano ([@rainearcher](https://github.com/rainearcher))
+**Raine Soriano** — AI software engineer building EDA, agentic, and full-stack apps.
+
+- GitHub: [@rainearcher](https://github.com/rainearcher)
+- LinkedIn: [rainesoriano](https://www.linkedin.com/in/rainesoriano/)
+- Email: [raine.a.soriano@gmail.com](mailto:raine.a.soriano@gmail.com)
