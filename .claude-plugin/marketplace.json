@@ -1,0 +1,45 @@
+{
+  "name": "quiver",
+  "owner": {
+    "name": "Raine Soriano",
+    "email": "raine.a.soriano@gmail.com"
+  },
+  "metadata": {
+    "description": "Quiver — Raine Soriano's collection of Claude Code skills and plugins. Each skill is an arrow you can pull out when you need it.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "perplexity-research",
+      "source": "./",
+      "description": "Run deep research / advanced research / 'perplexity research' on a topic — multi-step web browsing with citations via Perplexity's Agent API. Enforces a plan-approval workflow, output-budget gating to prevent truncation, and a structured sourced report (TL;DR, comparison tables, inline citations, Sources table, Where-sources-disagree, Confidence & gaps). Use for sourced briefs, competitive analysis, market research, GTM or landing-page audits, feature comparisons, market stack-rank for expansion, investor-memo background, or due-diligence briefs.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Raine Soriano"
+      },
+      "homepage": "https://github.com/rainearcher/quiver/tree/main/skills/perplexity-research",
+      "repository": "https://github.com/rainearcher/quiver",
+      "license": "MIT",
+      "keywords": [
+        "research",
+        "deep-research",
+        "advanced-research",
+        "perplexity",
+        "web-search",
+        "citations",
+        "gtm",
+        "market-research",
+        "competitive-analysis",
+        "competitor-research",
+        "investor-memo",
+        "due-diligence",
+        "feature-comparison",
+        "sourced-brief"
+      ],
+      "category": "research",
+      "tags": ["research", "gtm", "citations", "perplexity"],
+      "skills": "./skills",
+      "strict": false
+    }
+  ]
+}
