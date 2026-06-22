@@ -88,22 +88,26 @@ rm_log() {
   fi
 }
 
-# ---- merge a single key into a JSON settings file (no clobber) -------------
-rm_set_local_setting() {
-  local file="$1" key="$2" value="$3"
+# ---- write the memory settings into a JSON settings file (no clobber) ------
+# Sets autoMemoryDirectory (absolute string) AND autoMemoryEnabled:true (bool).
+# autoMemoryEnabled defaults OFF in headless `-p` mode, so it must be explicit
+# for runners/cron jobs to inject memory. Merges into existing settings.
+rm_apply_memory_settings() {
+  local file="$1" dir="$2"
   mkdir -p "$(dirname "$file")"
   python3 -c "
 import json,os,sys
-f='$file'
+f='$file'; d='$dir'
 try:
-    d=json.load(open(f)) if os.path.exists(f) and os.path.getsize(f) else {}
-    if not isinstance(d,dict): d={}
+    cur=json.load(open(f)) if os.path.exists(f) and os.path.getsize(f) else {}
+    if not isinstance(cur,dict): cur={}
 except Exception:
-    d={}
-if d.get('$key')=='''$value''':
+    cur={}
+if cur.get('autoMemoryDirectory')==d and cur.get('autoMemoryEnabled') is True:
     sys.exit(0)            # already correct, leave mtime alone
-d['$key']='''$value'''
-json.dump(d,open(f,'w'),indent=2)
+cur['autoMemoryDirectory']=d
+cur['autoMemoryEnabled']=True
+json.dump(cur,open(f,'w'),indent=2)
 open(f,'a').write('\n')
 " 2>/dev/null
 }

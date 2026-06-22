@@ -18,10 +18,15 @@ main() {
   memdir="$root/$RM_SUBDIR"
   mkdir -p "$memdir" 2>/dev/null || true
 
-  # (1) Redirect this checkout's memory at the canonical dir. Written to the
-  # CURRENT cwd's local settings so worktrees self-configure, all pointing at
-  # the one shared (main-worktree) memory dir. Absolute path is required.
-  rm_set_local_setting "$cwd/.claude/settings.local.json" autoMemoryDirectory "$memdir"
+  # (1) Redirect this checkout's memory at the canonical dir and enable memory.
+  # Written to the CURRENT cwd's local settings so worktrees self-configure, all
+  # pointing at the one shared (main-worktree) memory dir. Absolute path is
+  # required, and autoMemoryEnabled must be explicit for headless `-p` jobs.
+  # NOTE: the memory directory is resolved BEFORE SessionStart hooks run, so a
+  # hook-written path only takes effect from the NEXT session. On persistent
+  # machines run setup.sh once (it pre-writes this) so session 1 also works;
+  # ephemeral single-session clones must set it in their bootstrap.
+  rm_apply_memory_settings "$cwd/.claude/settings.local.json" "$memdir"
 
   # (2) Pull latest memory (memory subtree only) BEFORE creating any stub, so a
   # freshly created index file can't mark the tree dirty and block the pull.

@@ -17,18 +17,29 @@ Two hooks, no symlinks, no daemon:
 - **Stop** — commits memory-only changes onto the target branch (default `main`)
   and pushes, without touching your current branch, index, or working tree.
 
-### Why it's correct (verified against Claude Code 2.1.185)
+### Verified behavior (Claude Code 2.1.185) — read before relying on this
 
-- `autoMemoryDirectory` only honors **absolute** paths (relative paths are
-  silently ignored), so the hook computes an absolute path at runtime and writes
-  it to the checkout's `.claude/settings.local.json` (gitignored, per-machine).
+Established with confound-free tests (markers in a directory the model cannot
+browse, file-reads forbidden):
+
+- **`autoMemoryEnabled` defaults OFF in headless `-p` mode.** Memory is only
+  injected when it is explicitly `true`. Commit `"autoMemoryEnabled": true` into
+  the repo's `.claude/settings.json`; the hook/setup also set it in local
+  settings.
+- **`autoMemoryDirectory` only honors ABSOLUTE paths** — relative paths are
+  ignored. The hook computes an absolute path at runtime and writes it to
+  `.claude/settings.local.json` (gitignored, per-machine).
+- **The memory directory is resolved BEFORE SessionStart hooks run.** So a
+  hook-written path only takes effect from the **next** session. Consequences:
+  - *Persistent machines* (laptop, ops box): run `setup.sh` once — it pre-writes
+    the absolute path so session 1 injects; the hook keeps it fresh after.
+  - *Ephemeral single-session runners* (fresh clone each run): the bootstrap
+    **must** write `settings.local.json` with the absolute path before launching
+    `claude`. A hook cannot do it in time. (The committed memory files are still
+    readable by the agent, and the sync hooks still run.)
 - The path is anchored to the **main worktree** (via `git --git-common-dir`), so
-  every `git worktree` on a machine shares **one** memory dir instead of
-  fragmenting per worktree.
-- A SessionStart hook runs **before** memory is loaded, so the redirect takes
-  effect in the *same* session — fresh worktrees and ephemeral clones
-  self-configure on first run.
-- Everything runs in headless (`-p`) mode without an interactive trust dialog.
+  every `git worktree` on a machine shares **one** memory dir.
+- Hooks (sync) run fine in headless `-p` mode without an interactive trust dialog.
 
 ## Install
 
