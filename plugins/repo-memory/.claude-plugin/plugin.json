@@ -1,7 +1,7 @@
 {
   "name": "repo-memory",
   "description": "Keep Claude Code's project-scoped auto-memory inside the git repo and sync it across every machine (laptop, cloud runners, ops boxes). A SessionStart hook redirects autoMemoryDirectory to the repo's canonical memory dir (worktree-safe) and pulls the latest; a Stop hook commits memory-only changes to the main branch and pushes. Memory travels with the repo via git instead of living machine-locally under ~/.claude/projects.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Raine Soriano"
   },
