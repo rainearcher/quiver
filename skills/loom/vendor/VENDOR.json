@@ -1,0 +1,7 @@
+{
+  "_comment": "Written by scripts/sync-vendor.sh. Do not edit vendor/ by hand; edit mcp-loom and re-run the sync.",
+  "upstream": "https://github.com/rainearcher/mcp-loom",
+  "source_commit": "fbbe80a156c31628d6484e17cc6f2f958f466d43",
+  "version": "2.0.0",
+  "fingerprint": "e0b460b3b7b74d52359ce622eb86fe7980204e0ce5b7be1e7221597eadce7b91"
+}

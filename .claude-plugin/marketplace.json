@@ -43,7 +43,43 @@
         "citations",
         "perplexity"
       ],
-      "skills": "./skills",
+      "skills": "./skills/perplexity-research",
+      "strict": false
+    },
+    {
+      "name": "loom",
+      "source": "./",
+      "description": "Read and manage Loom videos from the shell via the `loom` CLI, vendored into the skill so there is nothing to install and nothing is fetched from PyPI. Pull transcripts, WebVTT captions, AI summaries, chapter markers and key takeaways; extract action items from a recording; list, search, rename, move, archive or download videos; read and post comments. Use whenever a loom.com URL is pasted or the user asks what was said in a Loom recording \u2014 \"summarize this loom\", \"pull the transcript\", \"what are the action items\". Requires LOOM_COOKIE: Loom has no official API key, so the CLI authenticates with your browser's connect.sid session cookie.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Raine Soriano"
+      },
+      "homepage": "https://github.com/rainearcher/quiver/tree/main/skills/loom",
+      "repository": "https://github.com/rainearcher/quiver",
+      "license": "MIT",
+      "keywords": [
+        "loom",
+        "video",
+        "transcript",
+        "captions",
+        "summary",
+        "chapters",
+        "action-items",
+        "meeting-notes",
+        "screen-recording",
+        "comments",
+        "cli",
+        "vendored",
+        "no-install"
+      ],
+      "category": "productivity",
+      "tags": [
+        "loom",
+        "video",
+        "transcript",
+        "cli"
+      ],
+      "skills": "./skills/loom",
       "strict": false
     },
     {
